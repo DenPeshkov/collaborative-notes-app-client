@@ -2,6 +2,7 @@ import React from "react";
 import {Typography} from '@material-ui/core';
 import Container from "@material-ui/core/Container";
 import {makeStyles} from "@material-ui/core/styles";
+import AppToolbar from "./AppToolbar";
 
 const useStyles = makeStyles(theme => ({
     Home: {
@@ -13,13 +14,16 @@ export default function Home() {
     const classes = useStyles();
 
     return (
-        <Container maxWidth="sm" className={classes.Home}>
-            <Typography variant="h1" align="center" color="textPrimary" gutterBottom>
-                ShareNotes
-            </Typography>
-            <Typography variant="h5" align="center" color="textSecondary">
-                Простое приложение для создания заметок
-            </Typography>
-        </Container>
+        <>
+            <AppToolbar type="home"/>
+            <Container maxWidth="sm" className={classes.Home}>
+                <Typography variant="h1" align="center" color="textPrimary" gutterBottom>
+                    ShareNotes
+                </Typography>
+                <Typography variant="h5" align="center" color="textSecondary">
+                    Простое приложение для создания заметок
+                </Typography>
+            </Container>
+        </>
     );
 }
