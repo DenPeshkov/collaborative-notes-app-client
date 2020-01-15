@@ -18,7 +18,7 @@ export default function Home() {
                 ShareNotes
             </Typography>
             <Typography variant="h5" align="center" color="textSecondary">
-                A simple note taking app
+                Простое приложение для создания заметок
             </Typography>
         </Container>
     );

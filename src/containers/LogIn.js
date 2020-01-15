@@ -58,7 +58,7 @@ export default function LogIn() {
                     <LockOutlinedIcon/>
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Sign in
+                    Войти
                 </Typography>
                 <form className={classes.form} noValidate>
                     <TextField
@@ -67,7 +67,7 @@ export default function LogIn() {
                         required
                         fullWidth
                         id="email"
-                        label="Email Address"
+                        label="Email адрес"
                         name="email"
                         autoComplete="email"
                         autoFocus
@@ -78,14 +78,14 @@ export default function LogIn() {
                         required
                         fullWidth
                         name="password"
-                        label="Password"
+                        label="Пароль"
                         type="password"
                         id="password"
                         autoComplete="current-password"
                     />
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary"/>}
-                        label="Remember me"
+                        label="Запомнить меня"
                     />
                     <Button
                         type="submit"
@@ -99,12 +99,12 @@ export default function LogIn() {
                     <Grid container>
                         <Grid item xs>
                             <MuiLink href="#" variant="body2">
-                                Forgot password?
+                                Забыли пароль?
                             </MuiLink>
                         </Grid>
                         <Grid item>
                             <MuiLink component={Link} to="/signup" variant="body2">
-                                {"Don't have an account? Sign Up"}
+                                {"Нет аккаунта? Зарегистрироваться!"}
                             </MuiLink>
                         </Grid>
                     </Grid>

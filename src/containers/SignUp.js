@@ -3,8 +3,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import MuiLink from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -58,7 +56,7 @@ export default function SignUp() {
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Sign up
+                    Зарегистрироваться
                 </Typography>
                 <form className={classes.form} noValidate>
                     <Grid container spacing={2}>
@@ -70,7 +68,7 @@ export default function SignUp() {
                                 required
                                 fullWidth
                                 id="firstName"
-                                label="First Name"
+                                label="Имя"
                                 autoFocus
                             />
                         </Grid>
@@ -80,7 +78,7 @@ export default function SignUp() {
                                 required
                                 fullWidth
                                 id="lastName"
-                                label="Last Name"
+                                label="Фамилия"
                                 name="lastName"
                                 autoComplete="lname"
                             />
@@ -91,7 +89,7 @@ export default function SignUp() {
                                 required
                                 fullWidth
                                 id="email"
-                                label="Email Address"
+                                label="Email адрес"
                                 name="email"
                                 autoComplete="email"
                             />
@@ -102,16 +100,10 @@ export default function SignUp() {
                                 required
                                 fullWidth
                                 name="password"
-                                label="Password"
+                                label="Пароль"
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <FormControlLabel
-                                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                label="I want to receive inspiration, marketing promotions and updates via email."
                             />
                         </Grid>
                     </Grid>
@@ -122,12 +114,12 @@ export default function SignUp() {
                         color="primary"
                         className={classes.submit}
                     >
-                        Sign Up
+                        Зарегистрироваться
                     </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
                             <MuiLink component={Link} to="/login" variant="body2">
-                                Already have an account? Sign in
+                                Уже есть аккаунт? Войти
                             </MuiLink>
                         </Grid>
                     </Grid>
