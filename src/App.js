@@ -3,7 +3,7 @@ import Routes from "./Routes";
 
 function App() {
     return (
-        <div>
+        <div style={{height: "100%"}}>
             <Routes/>
         </div>
     );

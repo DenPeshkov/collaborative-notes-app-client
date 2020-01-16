@@ -1,90 +1,59 @@
-import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import React from "react";
+import {makeStyles} from "@material-ui/core/styles";
+import ListItemText from "@material-ui/core/ListItemText";
+import {List} from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css'; // ES6
-
-const drawerWidth = 240;
+import "../components/Note.css"
+import AppToolbar from "../components/AppToolbar";
+import TextField from "@material-ui/core/TextField";
+import ListItem from "@material-ui/core/ListItem";
 
 const useStyles = makeStyles(theme => ({
     root: {
-        display: 'flex',
+        height: "100%",
+        margin: "0",
+        padding: "0"
     },
-    appBar: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
+    noteApp: {},
+
+    list: {
+        height: "100%",
+        borderRight: "1px solid rgba(0, 0, 0, 0.23)",
+        width: "100%"
     },
-    drawer: {
-        width: drawerWidth,
-        flexShrink: 0,
-    },
-    drawerPaper: {
-        width: drawerWidth,
-    },
-    toolbar: theme.mixins.toolbar,
-    content: {
-        flexGrow: 1,
-        backgroundColor: theme.palette.background.default,
-        padding: theme.spacing(3),
-    },
+    textField: {
+        "& .MuiFilledInput-root": {
+            borderTopLeftRadius: 0,
+            borderTopRightRadius: 0
+        }
+    }
 }));
 
 function Notes() {
     const classes = useStyles();
 
     return (
-        <div className={classes.root}>
-            <AppBar position="fixed" className={classes.appBar}>
-                <Toolbar>
-                    <Typography variant="h6" noWrap>
-                        Permanent drawer
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-            <Drawer
-                className={classes.drawer}
-                variant="permanent"
-                classes={{
-                    paper: classes.drawerPaper,
-                }}
-                anchor="left"
-            >
-                <div className={classes.toolbar}/>
-                <Divider/>
-                <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
-                            <ListItemText primary={text}/>
+        <>
+            <AppToolbar/>
+            <Grid container spacing={0} className={classes.root}>
+                <Grid item xs={3}>
+                    <List component="nav" aria-label="main mailbox folders" className={classes.list}>
+                        <ListItem button>
+                            <ListItemText primary="Photos" secondary="Jan 9, 2014"/>
                         </ListItem>
-                    ))}
-                </List>
-                <Divider/>
-                <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
-                            <ListItemText primary={text}/>
+                        <ListItem button>
+                            <ListItemText primary="Photos" secondary="Jan 9, 2014"/>
                         </ListItem>
-                    ))}
-                </List>
-            </Drawer>
-            <main className={classes.content}>
-                <div className={classes.toolbar}/>
-                <ReactQuill/>
-            </main>
-        </div>
+                    </List>
+                </Grid>
+                <Grid item xs={9}>
+                    <TextField fullWidth placeholder="Название" variant="filled" className={classes.textField}/>
+                    <ReactQuill className={classes.noteApp}/>
+                </Grid>
+            </Grid>
+        </>
     );
 }
 

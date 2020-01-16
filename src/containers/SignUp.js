@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Link} from "react-router-dom";
-import AppToolbar from "./AppToolbar";
+import AppToolbar from "../components/AppToolbar";
 
 function Copyright() {
     return (
