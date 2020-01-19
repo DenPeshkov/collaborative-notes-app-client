@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -13,6 +13,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Link} from "react-router-dom";
 import AppToolbar from "../components/AppToolbar";
+import {useFormFields} from "../libs/useFormFields";
 
 function Copyright() {
     return (
@@ -50,8 +51,10 @@ const useStyles = makeStyles(theme => ({
 function LogIn(props) {
     const classes = useStyles();
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [fields, handleFieldChange] = useFormFields({
+        email: "",
+        password: ""
+    });
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -81,7 +84,7 @@ function LogIn(props) {
                             name="email"
                             autoComplete="email"
                             autoFocus
-                            onChange={e => setEmail(e.target.value)}
+                            onChange={handleFieldChange}
                         />
                         <TextField
                             variant="outlined"
@@ -93,7 +96,7 @@ function LogIn(props) {
                             type="password"
                             id="password"
                             autoComplete="current-password"
-                            onChange={e => setPassword(e.target.value)}
+                            onChange={handleFieldChange}
                         />
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary"/>}
