@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter as Router} from 'react-router-dom';
-import {CssBaseline, createMuiTheme, ThemeProvider} from "@material-ui/core";
+import {createMuiTheme, CssBaseline, ThemeProvider} from "@material-ui/core";
 import {blue} from "@material-ui/core/colors";
 
 const theme = createMuiTheme({

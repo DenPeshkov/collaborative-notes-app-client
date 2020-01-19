@@ -1,37 +1,29 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/styles';
+import TextField from "@material-ui/core/TextField";
+import {makeStyles} from "@material-ui/core/styles";
 
-const styles = theme => ({
-    Note: {
-        //padding: theme.spacing(8, 0, 6),
+const useStyles = makeStyles(theme => ({
+    textField: {
+        "& .MuiFilledInput-root": {
+            borderTopLeftRadius: 0,
+            borderTopRightRadius: 0
+        }
     }
-});
+}));
 
-class Note extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {text: ''};// You can also pass a Quill Delta here
-        this.handleChange = this.handleChange.bind(this)
-    }
+function Note(props) {
+    const classes = useStyles();
 
-    handleChange(value) {
-        this.setState({text: value})
-    }
+    const [text, setText] = useState("");
 
-    render() {
-        const {classes} = this.props;
-        return (
-            <ReactQuill value={this.state.text}
-                        onChange={this.handleChange} className={classes.Note}/>
-        )
-    }
+    return (
+        <>
+            <TextField fullWidth placeholder="Название" variant="filled" className={classes.textField}/>
+            <ReactQuill value={text} onChange={setText}/>
+        </>
+    )
 }
 
-Note.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Note);
+export default Note;

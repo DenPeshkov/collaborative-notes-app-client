@@ -1,14 +1,15 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import ListItemText from "@material-ui/core/ListItemText";
-import {List} from "@material-ui/core";
+import {List, ListItemSecondaryAction} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css'; // ES6
 import "../components/Note.css"
 import AppToolbar from "../components/AppToolbar";
-import TextField from "@material-ui/core/TextField";
 import ListItem from "@material-ui/core/ListItem";
+import Note from "../components/Note";
+import Fab from "@material-ui/core/Fab";
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -31,26 +32,27 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function Notes() {
+function Notes(props) {
     const classes = useStyles();
 
     return (
         <>
-            <AppToolbar/>
+            <AppToolbar {...props}/>
             <Grid container spacing={0} className={classes.root}>
                 <Grid item xs={3}>
-                    <List component="nav" aria-label="main mailbox folders" className={classes.list}>
+                    <List className={classes.list}>
                         <ListItem button>
                             <ListItemText primary="Photos" secondary="Jan 9, 2014"/>
-                        </ListItem>
-                        <ListItem button>
-                            <ListItemText primary="Photos" secondary="Jan 9, 2014"/>
+                            <ListItemSecondaryAction>
+                                <Fab color="primary" aria-label="edit">
+                                    <DeleteIcon/>
+                                </Fab>
+                            </ListItemSecondaryAction>
                         </ListItem>
                     </List>
                 </Grid>
                 <Grid item xs={9}>
-                    <TextField fullWidth placeholder="Название" variant="filled" className={classes.textField}/>
-                    <ReactQuill className={classes.noteApp}/>
+                    <Note/>
                 </Grid>
             </Grid>
         </>

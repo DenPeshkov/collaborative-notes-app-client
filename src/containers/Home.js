@@ -11,12 +11,12 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function Home() {
+export default function Home(props) {
     const classes = useStyles();
 
     return (
         <>
-            <AppToolbar type="home"/>
+            <AppToolbar type="home" {...props}/>
             <Container component="main" className={classes.Home}>
                 <Typography variant="h1" align="center" color="textPrimary" gutterBottom>
                     ShareNotes

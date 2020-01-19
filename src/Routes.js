@@ -5,14 +5,15 @@ import LogIn from "./containers/LogIn";
 import SignUp from "./containers/SignUp";
 import NotFound from "./containers/NotFound";
 import Notes from "./containers/Notes";
+import AppliedRoute from "./components/AppliedRoute";
 
-export default function Routes() {
+export default function Routes({appProps}) {
     return (
         <Switch>
-            <Route path="/" exact component={Home}/>
-            <Route path="/login" exact component={LogIn}/>
-            <Route path="/signup" exact component={SignUp}/>
-            <Route path="/notes" exact component={Notes}/>
+            <AppliedRoute path="/" exact component={Home} appProps={appProps}/>
+            <AppliedRoute path="/login" exact component={LogIn} appProps={appProps}/>
+            <AppliedRoute path="/signup" exact component={SignUp} appProps={appProps}/>
+            <AppliedRoute path="/notes" exact component={Notes} appProps={appProps}/>
             <Route component={NotFound}/>
         </Switch>
     );

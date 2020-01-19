@@ -46,14 +46,17 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function SignUp() {
+export default function SignUp(props) {
     const classes = useStyles();
+
+    function handleSubmit(event) {
+        event.preventDefault();
+    }
 
     return (
         <>
-            <AppToolbar/>
+            <AppToolbar {...props}/>
             <Container component="main" maxWidth="xs">
-                <CssBaseline/>
                 <div className={classes.paper}>
                     <Avatar className={classes.avatar}>
                         <LockOutlinedIcon/>
@@ -61,7 +64,7 @@ export default function SignUp() {
                     <Typography component="h1" variant="h5">
                         Зарегистрироваться
                     </Typography>
-                    <form className={classes.form} noValidate>
+                    <form className={classes.form} noValidate onSubmit={handleSubmit}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField

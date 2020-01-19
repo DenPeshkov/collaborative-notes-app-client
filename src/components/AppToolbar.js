@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import {AppBar, Toolbar, Link as MuiLink, Button, Typography} from '@material-ui/core';
+import {AppBar, Button, Link as MuiLink, Toolbar} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 
 
@@ -39,14 +39,33 @@ function Home() {
     );
 }
 
+function LogOut(props) {
+    const classes = useStyles();
+
+    function handleLogOut() {
+        props.appProps.userHasAuthenticated(false);
+    }
+
+    return (
+        <>
+            <MuiLink color='inherit' component={Link} to="/" underline="none"
+                     variant='h4' className={classes.title}>ShareNotes</MuiLink>
+            <nav className={classes.nav}>
+                <Button color="inherit" variant='outlined' onClick={handleLogOut}>Выйти</Button>
+            </nav>
+        </>
+    );
+}
+
 function AppToolbar(props) {
     const classes = useStyles();
 
     let content;
 
-    switch (props.type) {
-        default:
-            content = Home();
+    if (props.appProps.isAuthenticated === true) {
+        content = LogOut(props);
+    } else if (props.appProps.isAuthenticated === false) {
+        content = Home(props);
     }
 
     return (
