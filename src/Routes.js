@@ -10,7 +10,7 @@ import AppliedRoute from "./components/AppliedRoute";
 export default function Routes({appProps}) {
     return (
         <Switch>
-            <AppliedRoute path="/" exact component={Home} appProps={appProps}/>
+            <AppliedRoute path="/" exact component={appProps.isAuthenticated ? Notes : Home} appProps={appProps}/>
             <AppliedRoute path="/login" exact component={LogIn} appProps={appProps}/>
             <AppliedRoute path="/signup" exact component={SignUp} appProps={appProps}/>
             <AppliedRoute path="/notes" exact component={Notes} appProps={appProps}/>

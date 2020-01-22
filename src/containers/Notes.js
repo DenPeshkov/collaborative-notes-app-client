@@ -1,15 +1,13 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import ListItemText from "@material-ui/core/ListItemText";
-import {List, ListItemSecondaryAction} from "@material-ui/core";
+import {List} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import 'react-quill/dist/quill.snow.css'; // ES6
 import "../components/Note.css"
 import AppToolbar from "../components/AppToolbar";
-import ListItem from "@material-ui/core/ListItem";
 import Note from "../components/Note";
-import Fab from "@material-ui/core/Fab";
-import DeleteIcon from '@material-ui/icons/Delete';
+import TextField from "@material-ui/core/TextField";
+import NotesListItems from "../components/NotesListItems";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -29,26 +27,30 @@ const useStyles = makeStyles(theme => ({
             borderTopLeftRadius: 0,
             borderTopRightRadius: 0
         }
+    },
+    search: {
+        borderRight: "1px solid rgba(0, 0, 0, 0.23)",
+        padding: "5px"
     }
 }));
 
 function Notes(props) {
     const classes = useStyles();
+    const notes = ["волаовавава", "djdfkdjf", "lskfjisafasHgyu sigfisf siufsfisa", "ks;lsk dsiod"];
+    const [searchStr, setSearchStr] = React.useState("");
+    const handleChange = event => {
+        setSearchStr(event.target.value);
+    };
 
     return (
         <>
             <AppToolbar {...props}/>
             <Grid container spacing={0} className={classes.root}>
                 <Grid item xs={3}>
+                    <TextField placeholder="Поиск" type="search" fullWidth value={searchStr} onChange={handleChange}
+                               className={classes.search}/>
                     <List className={classes.list}>
-                        <ListItem button>
-                            <ListItemText primary="Photos" secondary="Jan 9, 2014"/>
-                            <ListItemSecondaryAction>
-                                <Fab color="primary" aria-label="edit">
-                                    <DeleteIcon/>
-                                </Fab>
-                            </ListItemSecondaryAction>
-                        </ListItem>
+                        <NotesListItems notes={notes.filter(note => note.startsWith(searchStr))}/>
                     </List>
                 </Grid>
                 <Grid item xs={9}>
