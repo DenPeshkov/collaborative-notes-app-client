@@ -1,6 +1,4 @@
 import React, {useState} from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 import TextField from "@material-ui/core/TextField";
 import {makeStyles} from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -49,7 +47,6 @@ function Note(props) {
                 </Toolbar>
             </AppBar>
             <TextField fullWidth placeholder="Название" className={classes.textField}/>
-            <ReactQuill value={text} onChange={setText}/>
         </>
     )
 }

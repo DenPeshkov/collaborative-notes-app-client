@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     list: {
         height: "100%",
         borderRight: "1px solid rgba(0, 0, 0, 0.23)",
-        width: "100%"
+        //width: "100%"
     },
     textField: {
         "& .MuiFilledInput-root": {
@@ -46,14 +46,14 @@ function Notes(props) {
         <>
             <AppToolbar {...props}/>
             <Grid container spacing={0} className={classes.root}>
-                <Grid item xs={3}>
+                <Grid item style={{"flexGrow": "1"}}>
                     <TextField placeholder="Поиск" type="search" fullWidth value={searchStr} onChange={handleChange}
                                className={classes.search}/>
                     <List className={classes.list}>
                         <NotesListItems notes={notes.filter(note => note.startsWith(searchStr))}/>
                     </List>
                 </Grid>
-                <Grid item xs={9}>
+                <Grid item style={{"flexGrow": "3"}}>
                     <Note/>
                 </Grid>
             </Grid>
