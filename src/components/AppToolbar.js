@@ -177,7 +177,7 @@ function LogOut(props) {
             </AppBar>
             <Drawer
                 className={classes.drawer}
-                variant="persistent"
+                //variant="persistent"
                 anchor="left"
                 open={open}
                 classes={{
