@@ -2,8 +2,6 @@ import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {List} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-import 'react-quill/dist/quill.snow.css'; // ES6
-import "../components/Note.css"
 import AppToolbar from "../components/AppToolbar";
 import Note from "../components/Note";
 import TextField from "@material-ui/core/TextField";
