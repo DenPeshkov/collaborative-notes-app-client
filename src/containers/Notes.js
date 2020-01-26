@@ -26,7 +26,7 @@ function Notes(props) {
     const classes = useStyles();
     return (
         <div className={classes.layout}>
-            <AppToolbar {...props}/>
+            <AppToolbar notes={{text1: ["ssdsdsd", "skodjsidis"]}} {...props}/>
             <Paper variant="outlined" elevation={3} className={classes.paper}>
                 <Note/>
             </Paper>

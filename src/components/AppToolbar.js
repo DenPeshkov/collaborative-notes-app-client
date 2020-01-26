@@ -143,7 +143,7 @@ function LogOut(props) {
         setOpen(false);
     };
 
-    const notes = ["волаовавава", "djdfkdjf", "lskfjisafasHgyu sigfisf siufsfisa", "ks;lsk dsiod"];
+    const notes = props.notes.text1;
     const [searchStr, setSearchStr] = React.useState("");
     const handleChange = event => {
         setSearchStr(event.target.value);
@@ -202,9 +202,9 @@ function LogOut(props) {
 
 function AppToolbar(props) {
     if (props.appProps.isAuthenticated === true) {
-        return <LogOut props/>
+        return <LogOut {...props}/>
     } else if (props.appProps.isAuthenticated === false) {
-        return <Home props/>
+        return <Home {...props}/>
     }
 }
 

@@ -58,6 +58,7 @@ function LogIn(props) {
 
     function handleSubmit(event) {
         event.preventDefault();
+        props.history.push("/");
 
         props.appProps.userHasAuthenticated(true);
     }
