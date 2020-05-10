@@ -1,13 +1,22 @@
-import React, {useState} from 'react';
+import React from 'react';
+import "./App.css"
 import Routes from "./Routes";
+import {Layout} from "antd";
+import AppHeader from "./components/AppHeader/AppHeader";
+
+const {Content} = Layout;
 
 function App() {
-    const [isAuthenticated, userHasAuthenticated] = useState(false);
 
     return (
-        <div style={{height: "100%"}}>
-            <Routes appProps={{isAuthenticated, userHasAuthenticated}}/>
-        </div>
+        <Layout className="app-container" style={{height: "100%"}}>
+            <AppHeader/>
+            <Layout>
+                <Content>
+                    <Routes/>
+                </Content>
+            </Layout>
+        </Layout>
     );
 }
 
