@@ -9,8 +9,8 @@ function AppHeader() {
             className="app-header"
             title={<Link to="/" style={{color: "white"}}>ShareNotes</Link>}
             extra={[
-                <Button ghost={true} key="1">Sign in</Button>,
-                <Button ghost={true} key="2" type="primary">Sign up</Button>,
+                <Button ghost={true} key="1"><Link to="/signin">Sign in</Link></Button>,
+                <Button ghost={true} key="2" type="primary"><Link to="/signup">Sign up</Link></Button>,
             ]}
             ghost={false}
         />
