@@ -4,7 +4,7 @@ import Home from "./containers/Home/Home";
 import PageNotFound from "./containers/PageNotFound/PageNotFound";
 import SignIn from "./containers/Auth/SignIn";
 import SignUp from "./containers/Auth/SignUp";
-import ForgotPassword from "./containers/Auth/ForgotPassword";
+import CodeVerification from "./containers/Auth/CodeVerification";
 
 export default function Routes() {
     return (
@@ -18,8 +18,11 @@ export default function Routes() {
             <Route exact path="/signup">
                 <SignUp/>
             </Route>
-            <Route exct path="/forgotpassword">
-                <ForgotPassword/>
+            <Route exact path="/forgotpassword">
+                <CodeVerification/>
+            </Route>
+            <Route exact path="/registrationcodeverification">
+                <CodeVerification/>
             </Route>
             <Route>
                 <PageNotFound/>

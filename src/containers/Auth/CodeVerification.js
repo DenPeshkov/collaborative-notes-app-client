@@ -1,8 +1,9 @@
 import {Button, Col, Form, Input, Row, Spin, Steps} from 'antd';
 import React, {useState} from "react";
-import "./ForgotPassword.css"
+import "./CodeVerification.css"
 import {UserOutlined} from "@ant-design/icons";
 import FieldNumberOutlined from "@ant-design/icons/lib/icons/FieldNumberOutlined";
+import {useHistory} from "react-router-dom";
 
 const {Step} = Steps;
 
@@ -43,8 +44,10 @@ const SendMail = () => {
 };
 
 const Code = () => {
-    const onFinish = values => {
-        console.log('Received values of form: ', values);
+    const history = useHistory();
+
+    const onFinish = () => {
+        history.push("/");
     };
 
     return (
@@ -78,7 +81,7 @@ const Code = () => {
     );
 }
 
-const ForgotPassword = () => {
+const CodeVerification = () => {
     const [state, setState] = useState(0);
 
     let form;
@@ -122,4 +125,4 @@ const ForgotPassword = () => {
     );
 }
 
-export default ForgotPassword;
+export default CodeVerification;

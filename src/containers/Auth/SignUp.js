@@ -2,12 +2,14 @@ import React from "react";
 import {Button, Col, Form, Input, Row} from 'antd';
 import "./SignUp.css"
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
-import {Link} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import MailOutlined from "@ant-design/icons/lib/icons/MailOutlined";
 
 const SignUp = () => {
-    const onFinish = values => {
-        console.log('Received values of form: ', values);
+    const history = useHistory();
+
+    const onFinish = () => {
+        history.push("/registrationcodeverification");
     };
 
     return (

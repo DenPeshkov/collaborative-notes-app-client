@@ -2,14 +2,16 @@ import React from "react";
 import {Button, Col, Form, Input, Row} from 'antd';
 import "./SignIn.css"
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {useAppContext} from "../../libs/contextLib";
 
 const SignIn = () => {
     const {userHasAuthenticated} = useAppContext();
+    const history = useHistory();
 
     const onFinish = () => {
         userHasAuthenticated(true);
+        history.push("/");
     };
 
     return (
