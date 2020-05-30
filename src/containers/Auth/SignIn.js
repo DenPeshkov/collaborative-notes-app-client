@@ -3,10 +3,13 @@ import {Button, Col, Form, Input, Row} from 'antd';
 import "./SignIn.css"
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
+import {useAppContext} from "../../libs/contextLib";
 
 const SignIn = () => {
-    const onFinish = values => {
-        console.log('Received values of form: ', values);
+    const {userHasAuthenticated} = useAppContext();
+
+    const onFinish = () => {
+        userHasAuthenticated(true);
     };
 
     return (
