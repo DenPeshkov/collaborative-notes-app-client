@@ -1,0 +1,43 @@
+.ant-steps {
+    padding: 24px;
+}
+
+.send-mail-form {
+    margin: 24px;
+}
+
+.send-mail-form-forgot {
+    float: right;
+}
+
+.ant-col-rtl .send-mail-form-forgot {
+    float: left;
+}
+
+.send-mail-form-button {
+    width: 100%;
+}
+
+.ant-row {
+    height: 100%;
+}
+
+.form-spin {
+    text-align: center;
+}
+
+.input-code-form {
+    margin: 24px;
+}
+
+.input-code-form-forgot {
+    float: right;
+}
+
+.ant-col-rtl .input-code-form-forgot {
+    float: left;
+}
+
+.input-code-form-button {
+    width: 100%;
+}

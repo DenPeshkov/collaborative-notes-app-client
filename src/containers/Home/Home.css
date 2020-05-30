@@ -3,11 +3,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #001529;
 }
 
 h1.ant-typography {
-    color: white;
     font-weight: 600;
     font-size: 400%;
 }
