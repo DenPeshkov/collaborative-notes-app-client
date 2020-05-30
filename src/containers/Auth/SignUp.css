@@ -1,0 +1,19 @@
+.sign-up-form {
+    margin: 24px;
+}
+
+.sign-up-form-forgot {
+    float: right;
+}
+
+.ant-col-rtl .sign-up-form-forgot {
+    float: left;
+}
+
+.sign-up-form-button {
+    width: 100%;
+}
+
+.ant-row {
+    height: 100%;
+}

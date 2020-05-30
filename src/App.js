@@ -9,10 +9,10 @@ const {Content} = Layout;
 function App() {
 
     return (
-        <Layout className="app-container" style={{height: "100%"}}>
+        <Layout className="app-container">
             <AppHeader/>
             <Layout>
-                <Content>
+                <Content className="app-container-content">
                     <Routes/>
                 </Content>
             </Layout>
