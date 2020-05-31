@@ -1,44 +1,70 @@
 import React from 'react';
-import "./App.css"
-import {Button, Col, Layout, Menu, Row, Typography} from "antd";
-import {Link} from "react-router-dom";
-import Routes from "./Routes";
+import "./Editor.css"
+import {Input, Layout, List, Space} from "antd";
+import {CalendarOutlined} from "@ant-design/icons";
 
-const {Header, Sider, Content} = Layout;
-const {Title} = Typography;
+const {Header, Footer, Sider, Content} = Layout;
+const {TextArea} = Input;
 
-function App() {
+const IconText = ({icon, text}) => (
+    <Space>
+        {React.createElement(icon)}
+        {text}
+    </Space>
+);
+
+function Editor() {
+
+    const data = [
+        {
+            title: 'Ant Design Title 1',
+        },
+        {
+            title: 'Ant Design Title 2',
+        },
+        {
+            title: 'Ant Design Title 3',
+        },
+        {
+            title: 'Ant Design Title 4',
+        },
+    ];
 
     return (
-        <div className="App container" style={{height: "100%"}}>
-            <Layout style={{height: "100%"}}>
-                <Header>
-                    <Row>
-                        <Col span={4}>
-                            <Link to="/">
-                                <Title style={{color: "white"}}>ShareNotes</Title>
-                            </Link>
-                        </Col>
-                        <Col span={4} offset={16}>
-                            <Menu mode="horizontal" theme="dark" selectable={false}>
-                                <Menu.Item key="1">
-                                    <Button ghost={true}>Sign in</Button>
-                                </Menu.Item>
-                                <Menu.Item key="2">
-                                    <Button type="primary" ghost={true}>Sign up</Button>
-                                </Menu.Item>
-                            </Menu>
-                        </Col>
-                    </Row>
-                </Header>
-                <Layout>
-                    <Sider breakpoint="lg" collapsedWidth="0" theme="light">
-                    </Sider>
-                    <Routes/>
-                </Layout>
+        <Layout>
+            <Sider
+                breakpoint="lg"
+                collapsedWidth="0"
+                onBreakpoint={broken => {
+                    console.log(broken);
+                }}
+                onCollapse={(collapsed, type) => {
+                    console.log(collapsed, type);
+                }}
+            >
+                <List
+                    itemLayout="vertical"
+                    size="large"
+                    dataSource={data}
+                    renderItem={item => (
+                        <List.Item
+                            actions={[
+                                <IconText icon={CalendarOutlined} text="12.04.2017" key="1"/>,
+                            ]}
+                            onClick={() => console.log("a")}
+                        >
+                            {item.title}
+                        </List.Item>
+                    )}
+                />
+            </Sider>
+            <Layout>
+                <Content style={{margin: '24px 16px 0'}}>
+                    <TextArea rows={4}/>
+                </Content>
             </Layout>
-        </div>
+        </Layout>
     );
 }
 
-export default App;
+export default Editor;

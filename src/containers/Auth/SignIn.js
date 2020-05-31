@@ -41,7 +41,7 @@ const SignIn = () => {
                         />
                     </Form.Item>
                     <Form.Item>
-                        <Link to="/forgotpassword">Forgot password</Link>
+                        <Link to="/forgotpassword">Forgot password?</Link>
                     </Form.Item>
 
                     <Form.Item>

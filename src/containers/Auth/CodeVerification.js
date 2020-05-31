@@ -2,8 +2,8 @@ import {Button, Col, Form, Input, Row, Spin, Steps} from 'antd';
 import React, {useState} from "react";
 import "./CodeVerification.css"
 import {UserOutlined} from "@ant-design/icons";
-import FieldNumberOutlined from "@ant-design/icons/lib/icons/FieldNumberOutlined";
 import {useHistory} from "react-router-dom";
+import FileTextOutlined from "@ant-design/icons/lib/icons/FileTextOutlined";
 
 const {Step} = Steps;
 
@@ -67,7 +67,7 @@ const Code = () => {
                         name="code"
                         rules={[{required: true, message: 'Please input your code!'}]}
                     >
-                        <Input prefix={<FieldNumberOutlined className="site-form-item-icon"/>} placeholder="Code"/>
+                        <Input prefix={<FileTextOutlined className="site-form-item-icon"/>} placeholder="Code"/>
                     </Form.Item>
 
                     <Form.Item>
