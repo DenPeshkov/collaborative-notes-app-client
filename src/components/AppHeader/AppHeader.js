@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {Button, Drawer, Menu, PageHeader} from "antd";
-import {Link} from "react-router-dom";
+import {Avatar, Button, Drawer, Menu, PageHeader, Popover} from "antd";
+import {Link, useHistory} from "react-router-dom";
 import {useAppContext} from "../../libs/contextLib";
 import "./AppHeader.css"
 import BarsOutlined from "@ant-design/icons/lib/icons/BarsOutlined";
@@ -13,6 +13,18 @@ function AppHeader() {
     const [isDrawerVisible, setDrawerVisible] = useState(false);
     const [menuState, setMenuState] = useState("signin");
     let extra;
+    const history = useHistory();
+
+    const content =
+        <div>
+            <Button style={{marginBottom: "8px"}} type="dashed" block><Link to="/account">Account</Link></Button>
+            <Button type="dashed" key="6" onClick={() => {
+                userHasAuthenticated(false);
+                history.push("/")
+            }} block>Log
+                out</Button>
+        </div>
+
 
     switch (isAuthenticated) {
         case false: {
@@ -47,8 +59,11 @@ function AppHeader() {
             break;
         }
         case true: {
-            extra = [<Button ghost={true} key="6" type="primary" onClick={() => userHasAuthenticated(false)}>Log
-                out</Button>];
+            extra = [/*<Button ghost={true} key="6" type="primary" onClick={() => userHasAuthenticated(false)}>Log
+                out</Button>*/
+                <Popover placement="bottomLeft" title={"DenPeshkov"} content={content} trigger="click">
+                    <Avatar>D</Avatar>
+                </Popover>]
             break;
         }
     }

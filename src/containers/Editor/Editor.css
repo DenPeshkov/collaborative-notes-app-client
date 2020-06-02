@@ -1,7 +1,30 @@
-.ant-layout.ant-layout-has-sider {
+.editor-top-layout {
+    height: 100%;
+    background-color: #fff;
+}
+
+.editor-content {
+    background-color: #fff;
+}
+
+.editor-layout-background {
     height: 100%;
 }
 
-.ant-list-items {
-    padding: 8px;
+.editor-header {
+    background-color: #fff;
+    padding: 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.editor-sider {
+    border-right: 1px solid #f0f0f0;
+}
+
+.editor-sider-menu {
+    border: 0;
+}
+
+.editor-sider-search {
+    border: 0;
 }
