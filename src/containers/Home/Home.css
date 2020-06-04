@@ -1,11 +1,12 @@
-.Home {
+.home {
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 h1.ant-typography {
     font-weight: 600;
     font-size: 400%;
+}
+
+.home-row {
+    height: calc(100% - 64px);
 }

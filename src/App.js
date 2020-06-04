@@ -17,7 +17,6 @@ function App() {
     return (
         <Layout className="app-container">
             <AppContext.Provider value={{isAuthenticated, userHasAuthenticated, isMobile}}>
-                <AppHeader/>
                 <Layout>
                     <Content className="app-container-content">
                         <Routes/>
