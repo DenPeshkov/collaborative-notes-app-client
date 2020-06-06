@@ -1,6 +1,6 @@
 import React from 'react';
 import "./GroupsList.css"
-import {Button, Col, Row, Space, Table, Typography} from "antd";
+import {Button, Space, Table, Typography} from "antd";
 import FolderOutlined from "@ant-design/icons/lib/icons/FolderOutlined";
 import CloseOutlined from "@ant-design/icons/lib/icons/CloseOutlined";
 
@@ -13,6 +13,13 @@ function GroupsList() {
         {
             key: '1',
             name: 'Mike',
+            age: 3,
+            children: [
+                {
+                    key: '11',
+                    name: 'Mike'
+                }
+            ]
         },
         {
             key: '2',
@@ -85,19 +92,19 @@ function GroupsList() {
     ];
 
     return (
-        <Table showHeader={false} pagination={false} dataSource={dataSource}>
-            <Column title="Name" dataIndex="name" key="name" render={name => (
-                <Row>
-                    <Col span={20}>
-                        <Space>
-                            <FolderOutlined/>
-                            <Text style={{maxWidth: "128px"}} ellipsis={true}>{name}</Text>
-                        </Space>
-                    </Col>
-                    <Col span={4}>
-                        <Button type="default" size="small" icon={<CloseOutlined/>}/>
-                    </Col>
-                </Row>
+        <Table
+            showHeader={false}
+            pagination={false}
+            dataSource={dataSource}
+        >
+            <Column title="Name" dataIndex="name" key="name" render={(name, record) => (
+                <Space>
+                    <FolderOutlined/>
+                    <Text style={{maxWidth: "128px"}} ellipsis={true}>{name}</Text>
+                </Space>
+            )}/>
+            <Column render={() => (
+                <Button type="default" size="small" danger={true} icon={<CloseOutlined/>}/>
             )}/>
         </Table>
     );
