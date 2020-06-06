@@ -3,6 +3,18 @@
     background-color: #fff;
 }
 
+@media (max-width: 992px) {
+    .editor-content {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 992px) {
+    .editor-content {
+        margin-left: 272px;
+    }
+}
+
 .editor-content {
     background-color: #fff;
 }
@@ -11,8 +23,15 @@
     height: 100%;
 }
 
-.editor-sider {
-    /*border-right: 1px solid #f0f0f0;*/
+.editor-sider-left {
+    border-right: 1px solid #f0f0f0;
+    height: calc(100% - 64px);
+    position: fixed;
+    overflow: auto;
+}
+
+.ant-layout-sider-children {
+    margin:0 8px;
 }
 
 .editor-sider-menu {
