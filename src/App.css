@@ -1,5 +1,9 @@
-@import '~antd/dist/antd.dark.css';
+@import '~antd/dist/antd.css';
 
 .app-container {
     height: 100%;
+}
+
+.app-container-content {
+    background-color: #fff;
 }

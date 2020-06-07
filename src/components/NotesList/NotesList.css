@@ -1,0 +1,16 @@
+.ant-list-split .ant-list-header {
+    border-bottom: 0;
+    padding: 8px;
+}
+
+.ant-card-body {
+    padding: 24px;
+}
+
+.ant-list {
+    padding-bottom: 24px;
+}
+
+.ant-list-split .ant-list-item {
+    border: 0
+}

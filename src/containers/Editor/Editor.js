@@ -1,44 +1,59 @@
-import React from 'react';
-import "./App.css"
-import {Button, Col, Layout, Menu, Row, Typography} from "antd";
+import React, {useState} from 'react';
+import "./Editor.css"
+import {Button, Divider, Dropdown, Layout, Menu} from "antd";
+import AppHeader from "../../components/AppHeader/AppHeader";
+import {useAppContext} from "../../libs/contextLib";
 import {Link} from "react-router-dom";
-import Routes from "./Routes";
+import MobileAppHeaderLayout from "../../components/AppHeader/MobileAppHeaderLayout";
+import DefaultAppHeaderLayout from "../../components/AppHeader/DefaultAppHeaderLayout";
+import MenuOutlined from "@ant-design/icons/lib/icons/MenuOutlined";
+import {useMediaQuery} from 'react-responsive'
+import NotesList from "../../components/NotesList/NotesList";
+import GroupsList from "../../components/GroupsList/GroupsList";
 
-const {Header, Sider, Content} = Layout;
-const {Title} = Typography;
+const {Content, Sider} = Layout;
 
-function App() {
+
+function Editor() {
+    const {isMobile} = useAppContext();
+    const [collapsedLeft, setCollapsedLeft] = useState(false);
+    const [collapsedRight, setCollapsedRight] = useState(false);
+    const isBroken = useMediaQuery({
+        query: '(max-width: 992px)'
+    })
+
+    const menu = <Menu onClick={(e) => e.key === "1" ? setCollapsedLeft(!collapsedLeft) : setCollapsedRight(!collapsedRight)}>
+        <Menu.Item key="1">Open groups</Menu.Item>
+        <Menu.Item key="2">Open notes</Menu.Item>
+    </Menu>
 
     return (
-        <div className="App container" style={{height: "100%"}}>
-            <Layout style={{height: "100%"}}>
-                <Header>
-                    <Row>
-                        <Col span={4}>
-                            <Link to="/">
-                                <Title style={{color: "white"}}>ShareNotes</Title>
-                            </Link>
-                        </Col>
-                        <Col span={4} offset={16}>
-                            <Menu mode="horizontal" theme="dark" selectable={false}>
-                                <Menu.Item key="1">
-                                    <Button ghost={true}>Sign in</Button>
-                                </Menu.Item>
-                                <Menu.Item key="2">
-                                    <Button type="primary" ghost={true}>Sign up</Button>
-                                </Menu.Item>
-                            </Menu>
-                        </Col>
-                    </Row>
-                </Header>
-                <Layout>
-                    <Sider breakpoint="lg" collapsedWidth="0" theme="light">
+        <Layout className="editor-top-layout">
+            <AppHeader left={isBroken ?
+                <Dropdown overlay={menu}>
+                    <Button icon={<MenuOutlined style={{fontSize: "20px"}}/>}/>
+                </Dropdown>
+                :
+                <Link to="/" style={{fontSize: "20px", fontWeight: 600}}>ShareNotes</Link>}
+                       center={isBroken ? <Link to="/" style={{fontSize: "20px", fontWeight: 600}}>ShareNotes</Link>
+                           :
+                           <></>}
+                       right={isMobile ? <MobileAppHeaderLayout/> : <DefaultAppHeaderLayout/>}/>
+            <Content className="editor-layout-background editor-top-content">
+                <Layout className="editor-layout-background">
+                    <Sider breakpoint="lg" collapsedWidth="0" collapsed={collapsedLeft}
+                           onBreakpoint={(broken) => {
+                               setCollapsedLeft(broken)
+                           }}
+                           className="editor-sider-left"
+                           width={281} theme="light" trigger={null}>
+                        <GroupsList/>
                     </Sider>
-                    <Routes/>
+                    <Content className="editor-content" style={{padding: '0 24px'}}>Content</Content>
                 </Layout>
-            </Layout>
-        </div>
+            </Content>
+        </Layout>
     );
 }
 
-export default App;
+export default Editor;
