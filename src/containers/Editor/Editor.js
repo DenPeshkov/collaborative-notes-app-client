@@ -46,7 +46,7 @@ function Editor() {
                                setCollapsedLeft(broken)
                            }}
                            className="editor-sider-left"
-                           width={272} theme="light" trigger={null}>
+                           width={281} theme="light" trigger={null}>
                         <GroupsList/>
                     </Sider>
                     <Content className="editor-content" style={{padding: '0 24px'}}>Content</Content>

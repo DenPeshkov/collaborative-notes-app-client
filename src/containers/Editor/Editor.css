@@ -11,7 +11,7 @@
 
 @media (min-width: 992px) {
     .editor-content {
-        margin-left: 272px;
+        margin-left: 281px;
     }
 }
 
@@ -28,10 +28,6 @@
     height: calc(100% - 64px);
     position: fixed;
     overflow: auto;
-}
-
-.ant-layout-sider-children {
-    margin:0 8px;
 }
 
 .editor-sider-menu {
