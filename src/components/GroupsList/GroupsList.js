@@ -3,6 +3,7 @@ import "./GroupsList.css"
 import {Button, Form, Input, Space, Table, Typography} from "antd";
 import FolderOutlined from "@ant-design/icons/lib/icons/FolderOutlined";
 import CloseOutlined from "@ant-design/icons/lib/icons/CloseOutlined";
+import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 
 const {Text} = Typography;
 
@@ -111,56 +112,88 @@ function GroupsList() {
                 title: 'delete',
                 dataIndex: 'delete',
                 align: "right",
-                render: (text, record) => <Button type="default" size="small" danger={true} icon={<CloseOutlined/>}
-                                                  onClick={() => handleDelete(record)}/>
+                render: (text, record) => {
+                    return record.parent_key === undefined ?
+                        <Space>
+                            <Button type="default" size="small" icon={<PlusOutlined/>}
+                                    onClick={() => setDatasource(dataSource => {
+                                        const newData = [...dataSource.data];
+
+                                        let index = newData.findIndex(i => i.key === record.key);
+                                        newData[index].children = newData[index].children === undefined ? [{
+                                                key: dataSource.count + 1,
+                                                name: "Новая заметка",
+                                                parent_key: index
+                                            }]
+                                            :
+                                            [...newData[index].children, {
+                                                key: dataSource.count + 1,
+                                                name: "Новая заметка",
+                                                parent_key: index
+                                            }];
+                                        return {
+                                            data: newData,
+                                            count: dataSource.count + 1
+                                        };
+                                    })}/>
+                            <Button type="default" size="small" danger={true} icon={<CloseOutlined/>}
+                                    onClick={() => handleDelete(record)}/>
+                        </Space>
+                        :
+                        <Button type="default" size="small" danger={true} icon={<CloseOutlined/>}
+                                onClick={() => handleDelete(record)}/>
+                }
             }
         ]
     );
 
     const [dataSource, setDatasource] = useState(
-        [
-            {
-                key: '1',
-                name: 'Mike',
-                children: [
-                    {
-                        key: '3',
-                        parent_key: '1',
-                        name: 'Mike'
-                    },
-                    {
-                        key: '4',
-                        parent_key: '1',
-                        name: 'Mike'
-                    }
-                ]
-            },
-            {
-                key: '2',
-                name: 'John',
-            },
-        ]
+        {
+            data: [
+                {
+                    key: 0,
+                    name: 'Mike',
+                    children: [
+                        {
+                            key: 2,
+                            parent_key: 0,
+                            name: 'Mike'
+                        },
+                        {
+                            key: 3,
+                            parent_key: 0,
+                            name: 'Mike'
+                        }
+                    ]
+                },
+                {
+                    key: 1,
+                    name: 'John',
+                },
+            ],
+            count: 4
+        }
     );
 
     const handleDelete = item => {
         if (item.parent_key === undefined)
-            setDatasource(dataSource => dataSource.filter(i => i.key !== item.key));
-        else {
-
             setDatasource(dataSource => {
-                const temp = [...dataSource];
+                return {data: dataSource.data.filter(i => i.key !== item.key), count: dataSource.count - 1}
+            });
+        else
+            setDatasource(dataSource => {
+                const temp = [...dataSource.data];
                 const index = temp.findIndex(i => i.key === item.parent_key);
                 temp[index].children = temp[index].children.filter(i => i.key !== item.key);
                 if (temp[index].children.length === 0)
                     temp[index].children = null;
-                return temp;
+                return {data: temp, count: dataSource.count - 1};
             });
-        }
     };
 
     const handleSave = row => {
         setDatasource(dataSource => {
-            const newData = [...dataSource];
+            const newData = [...dataSource.data];
 
             if (row.parent_key === undefined) {
                 const index = newData.findIndex(item => row.key === item.key);
@@ -171,7 +204,7 @@ function GroupsList() {
                 const index_ch = item.findIndex(i => i.key === row.key);
                 newData[index].children.splice(index_ch, 1, row);
             }
-            return newData;
+            return {data: newData, count: dataSource.count};
         });
     };
 
@@ -199,10 +232,18 @@ function GroupsList() {
         <Table
             components={components}
             rowClassName={() => 'editable-row'}
-            dataSource={dataSource}
+            dataSource={dataSource.data}
             columns={columnsTable}
             showHeader={false}
             pagination={false}
+            title={() =>
+                <Button type="default" size="small" icon={<PlusOutlined/>} onClick={() => setDatasource(dataSource => {
+                    return {
+                        data: [...dataSource.data, {key: dataSource.count + 1, name: "Новая группа"}],
+                        count: dataSource.count + 1
+                    };
+                })}/>
+            }
         />
     );
 }

@@ -1,3 +1,7 @@
 .ant-table-row-level-1 {
-    background-color: #fbfbfb;
+    background-color: #ffffff;
+}
+
+.ant-table-title {
+    float: right;
 }
