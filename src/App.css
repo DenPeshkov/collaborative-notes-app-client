@@ -7,3 +7,13 @@
 .app-container-content {
     background-color: #fff;
 }
+
+.ant-btn {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.ant-btn-dangerous.ant-btn-primary {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}

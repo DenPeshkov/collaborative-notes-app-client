@@ -49,7 +49,7 @@ function Editor() {
                            width={281} theme="light" trigger={null}>
                         <GroupsList/>
                     </Sider>
-                    <Content className="editor-content" style={{padding: '0 24px'}}>Content</Content>
+                    <Content className="editor-content" style={{padding: '16px 24px'}}>Content</Content>
                 </Layout>
             </Content>
         </Layout>

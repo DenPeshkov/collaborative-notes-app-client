@@ -1,9 +1,8 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import "./GroupsList.css"
-import {Button, Form, Input, Space, Table, Typography} from "antd";
-import FolderOutlined from "@ant-design/icons/lib/icons/FolderOutlined";
-import CloseOutlined from "@ant-design/icons/lib/icons/CloseOutlined";
-import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
+import {Button, Form, Input, Table, Typography} from "antd";
+import FileAddOutlined from "@ant-design/icons/lib/icons/FileAddOutlined";
+import DeleteOutlined from "@ant-design/icons/lib/icons/DeleteOutlined";
 
 const {Text} = Typography;
 
@@ -97,15 +96,8 @@ function GroupsList() {
                 title: 'name',
                 dataIndex: 'name',
                 editable: true,
-                render: (text, record) => {
-                    return record.parent_key === undefined ? <Space>
-                            <FolderOutlined/>
-                            <Text style={{maxWidth: "115px"}}
-                                  ellipsis={true}>{text}</Text>
-                        </Space>
-                        :
-                        <Text style={{maxWidth: "115px"}}
-                              ellipsis={true}>{text}</Text>
+                render: text => {
+                    return <Text style={{maxWidth: "160px"}} ellipsis={true}>{text}</Text>
                 }
             },
             {
@@ -113,100 +105,44 @@ function GroupsList() {
                 dataIndex: 'delete',
                 align: "right",
                 render: (text, record) => {
-                    return record.parent_key === undefined ?
-                        <Space>
-                            <Button type="default" size="small" icon={<PlusOutlined/>}
-                                    onClick={() => setDatasource(dataSource => {
-                                        const newData = [...dataSource.data];
-
-                                        let index = newData.findIndex(i => i.key === record.key);
-                                        newData[index].children = newData[index].children === undefined ? [{
-                                                key: dataSource.count + 1,
-                                                name: "Новая заметка",
-                                                parent_key: index
-                                            }]
-                                            :
-                                            [...newData[index].children, {
-                                                key: dataSource.count + 1,
-                                                name: "Новая заметка",
-                                                parent_key: index
-                                            }];
-                                        return {
-                                            data: newData,
-                                            count: dataSource.count + 1
-                                        };
-                                    })}/>
-                            <Button type="default" size="small" danger={true} icon={<CloseOutlined/>}
-                                    onClick={() => handleDelete(record)}/>
-                        </Space>
-                        :
-                        <Button type="default" size="small" danger={true} icon={<CloseOutlined/>}
-                                onClick={() => handleDelete(record)}/>
+                    return <Button icon={<DeleteOutlined/>} onClick={() => handleDelete(record.key)} size="middle"
+                                   style={{border: "none"}}/>;
                 }
             }
         ]
     );
 
     const [dataSource, setDatasource] = useState(
-        {
-            data: [
-                {
-                    key: 0,
-                    name: 'Mike',
-                    children: [
-                        {
-                            key: 2,
-                            parent_key: 0,
-                            name: 'Mike'
-                        },
-                        {
-                            key: 3,
-                            parent_key: 0,
-                            name: 'Mike'
-                        }
-                    ]
-                },
-                {
-                    key: 1,
-                    name: 'John',
-                },
-            ],
-            count: 4
-        }
+        [
+            {
+                key: 0,
+                name: 'Mike',
+            },
+            {
+                key: 1,
+                name: 'John',
+            },
+        ]
     );
 
-    const handleDelete = item => {
-        if (item.parent_key === undefined)
-            setDatasource(dataSource => {
-                return {data: dataSource.data.filter(i => i.key !== item.key), count: dataSource.count - 1}
-            });
-        else
-            setDatasource(dataSource => {
-                const temp = [...dataSource.data];
-                const index = temp.findIndex(i => i.key === item.parent_key);
-                temp[index].children = temp[index].children.filter(i => i.key !== item.key);
-                if (temp[index].children.length === 0)
-                    temp[index].children = null;
-                return {data: temp, count: dataSource.count - 1};
-            });
+    const handleDelete = key => {
+        setDatasource(dataSource => dataSource.filter(note => note.key !== key));
     };
 
     const handleSave = row => {
-        setDatasource(dataSource => {
-            const newData = [...dataSource.data];
-
-            if (row.parent_key === undefined) {
-                const index = newData.findIndex(item => row.key === item.key);
-                newData.splice(index, 1, row);
-            } else {
-                const index = newData.findIndex(item => row.parent_key === item.key);
-                const item = newData[index].children;
-                const index_ch = item.findIndex(i => i.key === row.key);
-                newData[index].children.splice(index_ch, 1, row);
-            }
-            return {data: newData, count: dataSource.count};
+        const newData = [...dataSource];
+        const index = newData.findIndex(item => row.key === item.key);
+        const item = newData[index];
+        newData.splice(index, 1, {
+            ...item,
+            ...row,
         });
+        setDatasource(newData);
     };
+
+    const handleAdd = () => {
+        setDatasource(dataSource => [...dataSource, {key: dataSource.length + 1, name: "Новая заметка"}])
+    }
 
     const components = {
         body: {
@@ -232,18 +168,12 @@ function GroupsList() {
         <Table
             components={components}
             rowClassName={() => 'editable-row'}
-            dataSource={dataSource.data}
+            dataSource={dataSource}
             columns={columnsTable}
             showHeader={false}
             pagination={false}
-            title={() =>
-                <Button type="default" size="small" icon={<PlusOutlined/>} onClick={() => setDatasource(dataSource => {
-                    return {
-                        data: [...dataSource.data, {key: dataSource.count + 1, name: "Новая группа"}],
-                        count: dataSource.count + 1
-                    };
-                })}/>
-            }
+            title={() => <Button icon={<FileAddOutlined/>} size="large" type="dashed" block onClick={() => handleAdd()}>Add
+                note</Button>}
         />
     );
 }
