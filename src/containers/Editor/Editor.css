@@ -4,18 +4,18 @@
 }
 
 @media (max-width: 992px) {
-    .editor-content {
+    .content-layout {
         margin-left: 0;
     }
 }
 
 @media (min-width: 992px) {
-    .editor-content {
+    .content-layout {
         margin-left: 281px;
     }
 }
 
-.editor-content {
+.content-layout {
     background-color: #fff;
 }
 
@@ -23,17 +23,26 @@
     height: 100%;
 }
 
-.editor-sider-left {
+.editor-sider {
     border-right: 1px solid #f0f0f0;
     height: calc(100% - 64px);
     position: fixed;
     overflow: auto;
 }
 
-.editor-sider-menu {
-    border: 0;
-}
-
 .editor-sider-search {
     border: 0;
+    box-shadow: none;
+}
+
+.sider-header {
+    background-color: #fff;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 0 16px;
+}
+
+.header-content {
+    background-color: #fff;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 0 24px;
 }

@@ -17,13 +17,6 @@ export default function Home() {
             <AppHeader left={<Link to="/" style={{fontSize: "20px", fontWeight: 600}}>ShareNotes</Link>} right={
                 isMobile ? <MobileAppHeaderLayout/> : <DefaultAppHeaderLayout/>
             }/>
-            <div className="home-row">
-                <Row align="middle" justify="center">
-                    <Col>
-                        <Title>ShareNotes</Title>
-                    </Col>
-                </Row>
-            </div>
         </div>
     );
 }
