@@ -1,4 +1,4 @@
-.editor-top-layout {
+.editor-page-top-layout {
     height: 100%;
     background-color: #fff;
 }
@@ -19,18 +19,18 @@
     background-color: #fff;
 }
 
-.editor-layout-background {
+.editor-page-layout-background {
     height: 100%;
 }
 
-.editor-sider {
+.editor-page-sider {
     border-right: 1px solid #f0f0f0;
     height: calc(100% - 64px);
     position: fixed;
     overflow: auto;
 }
 
-.editor-sider-search {
+.editor-page-sider-search {
     border: 0;
     box-shadow: none;
 }
