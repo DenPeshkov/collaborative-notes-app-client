@@ -1,6 +1,12 @@
 .App {
 }
 
-.app-header {
+.App .app-header {
   border-bottom: 1px solid rgb(235, 237, 240);
+}
+
+.App .app-header .title{
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 32px;
 }
