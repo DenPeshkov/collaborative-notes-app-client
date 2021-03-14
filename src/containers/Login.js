@@ -1,8 +1,10 @@
+import React from "react";
 import {Form, Input, Button, Checkbox} from 'antd';
 import {UserOutlined, LockOutlined} from '@ant-design/icons';
 import "./Login.css"
 import {Link, useHistory} from "react-router-dom";
 import {useAppContext} from "../libs/contextLib";
+import {post} from "../libs/post";
 
 export default function Login() {
   const {setIsAuthenticated} = useAppContext();
@@ -11,29 +13,22 @@ export default function Login() {
   const url = 'http://localhost:8762/authentication-service/login'
 
   async function handleSubmit(values) {
-    console.log('Received values of form: ', JSON.stringify(values));
+    try {
+      let jwt = await (await post(url, values)).json();
 
-    let response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify(values)
-    });
-
-    if (response.ok) {
-      let jwt = await response.json();
+      console.log(jwt)
 
       setIsAuthenticated(true);
 
-      console.log(jwt);
+      localStorage.setItem("jwt", jwt.jwtToken);
+
       history.push("/")
-    } else {
-      let exception = await response.text();
+    } catch (exception) {
+      console.log(exception)
 
       history.push("/error", {
-        status: response.status,
-        exception: exception
+        status: exception.status,
+        exception: exception.exception
       })
     }
   }

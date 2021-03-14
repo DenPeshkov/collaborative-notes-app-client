@@ -2,6 +2,8 @@ import React from 'react';
 import {Button, Form, Input} from 'antd';
 import "./Signup.css"
 import {useHistory} from "react-router-dom";
+import {post} from "../libs/post";
+import {useAppContext} from "../libs/contextLib";
 
 const formItemLayout = {
   labelCol: {
@@ -36,32 +38,31 @@ const tailFormItemLayout = {
 };
 
 export default function Signup() {
+  const {setIsAuthenticated} = useAppContext();
   const history = useHistory();
-  const url = 'http://localhost:8762/authentication-service/signup'
+  const urlSignup = 'http://localhost:8762/authentication-service/signup'
+  const urlLogin = 'http://localhost:8762/authentication-service/login'
 
   const [form] = Form.useForm();
 
   async function handleSubmit(values) {
-    console.log('Received values of form: ', JSON.stringify(values));
+    try {
+      await post(urlSignup, values);
 
-    let response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify(values)
-    });
+      let jwt = await (await post(urlLogin, values)).json();
 
-    if (response.ok) {
-      let jwt = await response.json();
+      console.log(jwt)
 
-      console.log(jwt);
-    } else {
-      let exception = await response.text();
+      setIsAuthenticated(true);
 
+      localStorage.setItem("jwt", jwt.jwtToken);
+
+      history.push("/")
+    } catch (exception) {
+      console.log("exception " + exception)
       history.push("/error", {
-        status: response.status,
-        exception: exception
+        status: exception.status,
+        exception: exception.exception
       })
     }
   }

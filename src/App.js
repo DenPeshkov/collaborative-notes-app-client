@@ -10,6 +10,8 @@ function App() {
 
   function handleLogout() {
     setIsAuthenticated(false);
+
+    localStorage.removeItem("jwt")
   }
 
   return (
