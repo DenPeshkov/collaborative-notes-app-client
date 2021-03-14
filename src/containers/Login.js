@@ -1,13 +1,37 @@
 import {Form, Input, Button, Checkbox} from 'antd';
 import {UserOutlined, LockOutlined} from '@ant-design/icons';
 import "./Login.css"
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 export default function Login() {
+  const history = useHistory();
+  const url = 'http://localhost:8762/authentication-service/login'
 
-  const onSubmit = (values) => {
-    console.log('Received values of form: ', values);
-  };
+  async function handleSubmit(values) {
+    console.log('Received values of form: ', JSON.stringify(values));
+
+    let response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(values)
+    });
+
+    if (response.ok) {
+      let jwt = await response.json();
+
+      console.log(jwt);
+      history.push("/")
+    } else {
+      let exception = await response.text();
+
+      history.push("/error", {
+        status: response.status,
+        exception: exception
+      })
+    }
+  }
 
   return (
       <Form
@@ -16,7 +40,7 @@ export default function Login() {
           initialValues={{
             remember: true,
           }}
-          onFinish={onSubmit}
+          onFinish={handleSubmit}
       >
         <Form.Item
             name="username"
