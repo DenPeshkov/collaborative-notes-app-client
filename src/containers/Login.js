@@ -2,9 +2,12 @@ import {Form, Input, Button, Checkbox} from 'antd';
 import {UserOutlined, LockOutlined} from '@ant-design/icons';
 import "./Login.css"
 import {Link, useHistory} from "react-router-dom";
+import {useAppContext} from "../libs/contextLib";
 
 export default function Login() {
+  const {setIsAuthenticated} = useAppContext();
   const history = useHistory();
+
   const url = 'http://localhost:8762/authentication-service/login'
 
   async function handleSubmit(values) {
@@ -20,6 +23,8 @@ export default function Login() {
 
     if (response.ok) {
       let jwt = await response.json();
+
+      setIsAuthenticated(true);
 
       console.log(jwt);
       history.push("/")

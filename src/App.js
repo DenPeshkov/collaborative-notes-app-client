@@ -1,9 +1,17 @@
+import React, {useState} from "react";
 import './App.css';
 import {Button, PageHeader} from "antd";
 import Routes from "./Routes";
 import {Link} from "react-router-dom";
+import {AppContext} from "./libs/contextLib";
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  function handleLogout() {
+    setIsAuthenticated(false);
+  }
+
   return (
       <div className="App">
         <PageHeader
@@ -15,7 +23,11 @@ function App() {
                 </Link>
               </Button>
             }
-            extra={[
+            extra={isAuthenticated ? [
+              <Button key="4" type="primary" onClick={handleLogout}>
+                Logout
+              </Button>
+            ] : [
               <Button key="2" type="primary">
                 <Link to="/signup">
                   Signup
@@ -28,7 +40,9 @@ function App() {
               </Button>
             ]}
         />
-        <Routes/>
+        <AppContext.Provider value={{isAuthenticated, setIsAuthenticated}}>
+          <Routes/>
+        </AppContext.Provider>
       </div>
   );
 }
