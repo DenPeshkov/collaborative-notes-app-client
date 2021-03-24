@@ -1,5 +1,16 @@
 .Home .content {
-  padding: 80px 0;
-  text-align: center;
-  background-color: white;
+    background-color: white;
+}
+
+.Home .lander {
+    padding: 80px 0;
+    text-align: center;
+}
+
+.Home .notes-list {
+    margin: 24px;
+}
+
+.Home .add-note-button {
+
 }
