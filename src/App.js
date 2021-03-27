@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './App.css';
 import {Button, PageHeader} from "antd";
 import Routes from "./Routes";
@@ -7,6 +7,18 @@ import {AppContext} from "./libs/contextLib";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    onLoad();
+  }, []);
+
+  function onLoad() {
+    if (localStorage.getItem("jwt") !== null) {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
+  }
 
   function handleLogout() {
     setIsAuthenticated(false);

@@ -4,6 +4,7 @@ import {Button, Layout, List, Typography} from "antd";
 import {useAppContext} from "../libs/contextLib";
 import {Link, useHistory} from "react-router-dom";
 import {get} from "../libs/get";
+import {FileAddOutlined, SnippetsOutlined} from "@ant-design/icons";
 
 const {Content} = Layout;
 const {Title} = Typography;
@@ -13,7 +14,7 @@ export default function Home() {
   const {isAuthenticated} = useAppContext();
   const [notes, setNotes] = useState([]);
 
-  const notesUrl = 'http://localhost:8763/notes-service/api/notes'
+  const notesUrl = 'http://localhost:8762/notes-service/api/notes'
 
   useEffect(() => {
     async function onLoad() {
@@ -22,7 +23,10 @@ export default function Home() {
       }
 
       try {
-        const notes = await get(notesUrl);
+        const notes = await (await get(notesUrl)).json();
+
+        console.log('notes=' + notes);
+
         setNotes(notes);
       } catch (exception) {
         console.log(exception)
@@ -46,6 +50,10 @@ export default function Home() {
     );
   }
 
+  function createNote() {
+
+  }
+
   function renderNotes() {
     return (
         <List
@@ -53,15 +61,20 @@ export default function Home() {
             size="large"
             header={
               <div>
-                <Button key="1" block className="add-note-button" type="dashed">
-                  <Link to="/notes/new">
-                    Create new note
-                  </Link>
+                <Button key="1" className="add-note-button" type="text"
+                        icon={<FileAddOutlined/>} onCLick={createNote}>
+                  Create new note
                 </Button>
               </div>
             }
             dataSource={notes}
-            renderItem={item => <List.Item>{item}</List.Item>}
+            renderItem={item =>
+                <List.Item>
+                  <List.Item.Meta
+                      avatar={<SnippetsOutlined/>}
+                      title={<Link to={`/notes/${item.id}`}>{item.title}</Link>}
+                  />
+                </List.Item>}
         />
     )
   }
