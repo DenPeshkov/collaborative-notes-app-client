@@ -31,7 +31,7 @@ function App() {
         <PageHeader
             className="app-header"
             title={
-              <Button className="title" key="1" type="link" href="/">
+              <Button className="title" key="1" type="link">
                 <Link to="/">
                   ShareNotes
                 </Link>
