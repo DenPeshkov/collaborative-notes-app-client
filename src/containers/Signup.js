@@ -2,8 +2,8 @@ import React from 'react';
 import {Button, Form, Input} from 'antd';
 import "./Signup.css"
 import {useHistory} from "react-router-dom";
-import {post} from "../libs/post";
 import {useAppContext} from "../libs/contextLib";
+import {fetchRequest} from "../libs/fetchRequest";
 
 const formItemLayout = {
   labelCol: {
@@ -40,16 +40,16 @@ const tailFormItemLayout = {
 export default function Signup() {
   const {setIsAuthenticated} = useAppContext();
   const history = useHistory();
-  const urlSignup = 'http://localhost:8762/authentication-service/signup'
-  const urlLogin = 'http://localhost:8762/authentication-service/login'
+  const url = 'http://localhost:8762/authentication-service'
 
   const [form] = Form.useForm();
 
   async function handleSubmit(values) {
     try {
-      await post(urlSignup, values);
+      await fetchRequest(`${url}/signup`, values, 'POST');
 
-      let jwt = await (await post(urlLogin, values)).json();
+      let jwt = await (await fetchRequest(`${url}/login`, values,
+          'POST')).json();
 
       console.log(jwt)
 

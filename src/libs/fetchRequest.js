@@ -1,14 +1,16 @@
 import React from "react";
 
-export async function post(url, values) {
+export async function fetchRequest(url, values, method) {
+  const token = localStorage.jwt;
   console.log('Received values of form: ', JSON.stringify(values));
 
   let response = await fetch(url, {
-    method: 'POST',
+    method: method,
     headers: {
-      'Content-Type': 'application/json;charset=utf-8'
+      'Content-Type': 'application/json;charset=utf-8',
+      'Authorization': `Bearer ${token}`
     },
-    body: JSON.stringify(values)
+    body: values === null ? null : JSON.stringify(values)
   });
 
   if (response.ok) {

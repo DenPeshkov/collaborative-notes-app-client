@@ -4,17 +4,18 @@ import {UserOutlined, LockOutlined} from '@ant-design/icons';
 import "./Login.css"
 import {Link, useHistory} from "react-router-dom";
 import {useAppContext} from "../libs/contextLib";
-import {post} from "../libs/post";
+import {fetchRequest} from "../libs/fetchRequest";
 
 export default function Login() {
   const {setIsAuthenticated} = useAppContext();
   const history = useHistory();
 
-  const url = 'http://localhost:8762/authentication-service/login'
+  const url = 'http://localhost:8762/authentication-service'
 
   async function handleSubmit(values) {
     try {
-      let jwt = await (await post(url, values)).json();
+      let jwt = await (await fetchRequest(`${url}/login`, values,
+          'POST')).json();
 
       console.log(jwt)
 

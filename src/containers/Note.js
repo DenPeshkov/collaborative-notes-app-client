@@ -2,28 +2,31 @@ import React, {useEffect, useState} from "react";
 import "./Note.css";
 import {useParams} from "react-router";
 import {useHistory} from "react-router-dom";
-import {get} from "../libs/get";
-import {Card, Input} from "antd";
+import {Card, Input, Spin} from "antd";
+import NoteEditor from "../components/NoteEditor";
+import {fetchRequest} from "../libs/fetchRequest";
 
 const {TextArea} = Input;
 
 export default function Note() {
   const {id} = useParams();
-  const history = useHistory();
-  const [note, setNote] = useState({title: "title1", text: "text1"});
+  //const history = useHistory();
+  //const [note, setNote] = useState({title: "", text: ""});
 
-  const noteUrl = 'http://localhost:8762/notes-service/api/notes'
+  //const url = 'http://localhost:8762/notes-service'
+
+  //const [loading, setLoading] = useState(true);
+
+  const [title, setTitle] = useState("");
 
   /*useEffect(() => {
-    function loadNote() {
-      return get(`${noteUrl}/${id}`);
-    }
-
     async function onLoad() {
       try {
-        const note = await (await loadNote()).json();
+        const note = await (await fetchRequest(`${url}/api/notes/${id}`, null,
+            'GET')).json();
 
         setNote(note);
+        setLoading(false);
       } catch (exception) {
         console.log(exception)
 
@@ -38,12 +41,19 @@ export default function Note() {
   }, [id]);*/
 
   return (
-      <Card className="Card" title="Title" bordered={false}
+      /*loading ?
+          <Spin className="spin-loading" tip="Loading..." size="large"/>
+          :
+          <Card className="Card" title={note.title}
+                bordered={false}
+                extra={<a href="#">More</a>}>
+            {loading ? <Spin/> : <NoteEditor text={note.text}/>}
+          </Card>*/
+      <Card className="Card" title={title}
+            bordered={false}
             extra={<a href="#">More</a>}>
-        <TextArea bordered={false} placeholder="Note content..."
-                  autoSize value={note.text} onChange={({target: {value}}) => {
-          setNote(prevNote => ({...prevNote, text: value}))
-        }}/>
+        <NoteEditor id={id} setTitle={setTitle}/>
       </Card>
   );
+
 }
