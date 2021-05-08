@@ -10,10 +10,10 @@ import {Client, Message} from '@stomp/stompjs';
 const {TextArea} = Input;
 
 export default function NoteEditor(props) {
-  const [automergeDoc, setAutomergeDoc] = useState(Automerge.load(
-      "[\"~#iL\",[[\"~#iM\",[\"ops\",[\"^0\",[[\"^1\",[\"action\",\"makeText\",\"obj\",\"8bdacb8c-a635-4792-9a42-527a20a2ff31\"]],[\"^1\",[\"action\",\"ins\",\"obj\",\"8bdacb8c-a635-4792-9a42-527a20a2ff31\",\"key\",\"_head\",\"elem\",1]],[\"^1\",[\"action\",\"set\",\"obj\",\"8bdacb8c-a635-4792-9a42-527a20a2ff31\",\"key\",\"888443d3-4ff0-44b8-8eae-72bb0b5dfd93:1\",\"value\",\"S\"]],[\"^1\",[\"action\",\"ins\",\"obj\",\"8bdacb8c-a635-4792-9a42-527a20a2ff31\",\"key\",\"888443d3-4ff0-44b8-8eae-72bb0b5dfd93:1\",\"elem\",2]],[\"^1\",[\"action\",\"set\",\"obj\",\"8bdacb8c-a635-4792-9a42-527a20a2ff31\",\"key\",\"888443d3-4ff0-44b8-8eae-72bb0b5dfd93:2\",\"value\",\"o\"]],[\"^1\",[\"action\",\"ins\",\"obj\",\"8bdacb8c-a635-4792-9a42-527a20a2ff31\",\"key\",\"888443d3-4ff0-44b8-8eae-72bb0b5dfd93:2\",\"elem\",3]],[\"^1\",[\"action\",\"set\",\"obj\",\"8bdacb8c-a635-4792-9a42-527a20a2ff31\",\"key\",\"888443d3-4ff0-44b8-8eae-72bb0b5dfd93:3\",\"value\",\"m\"]],[\"^1\",[\"action\",\"ins\",\"obj\",\"8bdacb8c-a635-4792-9a42-527a20a2ff31\",\"key\",\"888443d3-4ff0-44b8-8eae-72bb0b5dfd93:3\",\"elem\",4]],[\"^1\",[\"action\",\"set\",\"obj\",\"8bdacb8c-a635-4792-9a42-527a20a2ff31\",\"key\",\"888443d3-4ff0-44b8-8eae-72bb0b5dfd93:4\",\"value\",\"e\"]],[\"^1\",[\"action\",\"ins\",\"obj\",\"8bdacb8c-a635-4792-9a42-527a20a2ff31\",\"key\",\"888443d3-4ff0-44b8-8eae-72bb0b5dfd93:4\",\"elem\",5]],[\"^1\",[\"action\",\"set\",\"obj\",\"8bdacb8c-a635-4792-9a42-527a20a2ff31\",\"key\",\"888443d3-4ff0-44b8-8eae-72bb0b5dfd93:5\",\"value\",\" \"]],[\"^1\",[\"action\",\"ins\",\"obj\",\"8bdacb8c-a635-4792-9a42-527a20a2ff31\",\"key\",\"888443d3-4ff0-44b8-8eae-72bb0b5dfd93:5\",\"elem\",6]],[\"^1\",[\"action\",\"set\",\"obj\",\"8bdacb8c-a635-4792-9a42-527a20a2ff31\",\"key\",\"888443d3-4ff0-44b8-8eae-72bb0b5dfd93:6\",\"value\",\"t\"]],[\"^1\",[\"action\",\"ins\",\"obj\",\"8bdacb8c-a635-4792-9a42-527a20a2ff31\",\"key\",\"888443d3-4ff0-44b8-8eae-72bb0b5dfd93:6\",\"elem\",7]],[\"^1\",[\"action\",\"set\",\"obj\",\"8bdacb8c-a635-4792-9a42-527a20a2ff31\",\"key\",\"888443d3-4ff0-44b8-8eae-72bb0b5dfd93:7\",\"value\",\"e\"]],[\"^1\",[\"action\",\"ins\",\"obj\",\"8bdacb8c-a635-4792-9a42-527a20a2ff31\",\"key\",\"888443d3-4ff0-44b8-8eae-72bb0b5dfd93:7\",\"elem\",8]],[\"^1\",[\"action\",\"set\",\"obj\",\"8bdacb8c-a635-4792-9a42-527a20a2ff31\",\"key\",\"888443d3-4ff0-44b8-8eae-72bb0b5dfd93:8\",\"value\",\"x\"]],[\"^1\",[\"action\",\"ins\",\"obj\",\"8bdacb8c-a635-4792-9a42-527a20a2ff31\",\"key\",\"888443d3-4ff0-44b8-8eae-72bb0b5dfd93:8\",\"elem\",9]],[\"^1\",[\"action\",\"set\",\"obj\",\"8bdacb8c-a635-4792-9a42-527a20a2ff31\",\"key\",\"888443d3-4ff0-44b8-8eae-72bb0b5dfd93:9\",\"value\",\"t\"]],[\"^1\",[\"action\",\"link\",\"obj\",\"00000000-0000-0000-0000-000000000000\",\"key\",\"text\",\"value\",\"8bdacb8c-a635-4792-9a42-527a20a2ff31\"]]]],\"actor\",\"888443d3-4ff0-44b8-8eae-72bb0b5dfd93\",\"seq\",1,\"deps\",[\"^1\",[]],\"message\",\"Initialization\",\"undoable\",false]]]]"));
+  const [automergeDoc, setAutomergeDoc] = useState(
+      Automerge.from({text: new Automerge.Text("")}));
 
-  const [note, setNote] = useState("Some text");
+  const [note, setNote] = useState("");
   const history = useHistory();
 
   const url = 'http://localhost:8762/notes-service'
@@ -27,7 +27,15 @@ export default function NoteEditor(props) {
             null,
             'GET')).json();
 
+        console.log("Got note from server: " + JSON.stringify(note));
+
         props.setTitle(note.title);
+        setNote(note.text);
+        console.log(Automerge.save(automergeDoc));
+        if (note.automerge) {
+          console.log("Setting automerge to value: " + note.automerge)
+          setAutomergeDoc(Automerge.load(note.automerge));
+        }
       } catch (exception) {
         console.log(exception)
 
@@ -57,11 +65,6 @@ export default function NoteEditor(props) {
       });
     }
   };
-
-  /*useEffect(() => {
-    console.log("automergeDoc: " + automergeDoc.text.toString())
-    setNote(automergeDoc.text.toString());
-  }, [automergeDoc.text])*/
 
   useEffect(() => {
     ws.current = new Client();

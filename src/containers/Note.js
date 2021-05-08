@@ -2,9 +2,10 @@ import React, {useEffect, useState} from "react";
 import "./Note.css";
 import {useParams} from "react-router";
 import {useHistory} from "react-router-dom";
-import {Card, Input, Spin} from "antd";
+import {Button, Card, Input, Spin} from "antd";
 import NoteEditor from "../components/NoteEditor";
 import {fetchRequest} from "../libs/fetchRequest";
+import {FileAddOutlined} from "@ant-design/icons";
 
 const {TextArea} = Input;
 
@@ -51,7 +52,9 @@ export default function Note() {
           </Card>*/
       <Card className="Card" title={title}
             bordered={false}
-            extra={<a href="#">More</a>}>
+            extra={<Button type="text" onClick={saveNote}>
+              Save
+            </Button>}>
         <NoteEditor id={id} setTitle={setTitle}/>
       </Card>
   );
